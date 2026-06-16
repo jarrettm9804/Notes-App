@@ -1,23 +1,21 @@
 let notes = [];
+let selectedNoteIndex = null;
 
 const titleText = document.getElementById("title")
 const editor = document.getElementById("editor")
 
-
-
 titleText.addEventListener("input", ()=> {
-    console.log("Saving Title value")
-    localStorage.setItem("title", titleText.value)
+    if(selectedNoteIndex === null) return;
+    notes[selectedNoteIndex].title = titleText.value 
+    renderNotes();
 })
+
+    
 
 editor.addEventListener("input", ()=> {
-    console.log("Saving Editor value")
-    localStorage.setItem("note", editor.value)
+    if(selectedNoteIndex === null) return;
+    notes[selectedNoteIndex].content = editor.value 
 })
-
-
-titleText.value = localStorage.getItem("title") || "";
-editor.value = localStorage.getItem("note") || "";
 
 function addNoteItem(){
     console.log("Created Note Item")
@@ -28,28 +26,48 @@ function addNoteItem(){
     notes.push(note)
 
     renderNotes()
-    console.log(notes)
+    openNote(notes.length - 1)
     }
     
 
-    function renderNotes(){
-        const notesList = document.getElementById("notesList")
-        notesList.innerHTML = ""
+function renderNotes(){
+    const notesList = document.getElementById("notesList")
+    notesList.innerHTML = ""
 
-        notes.forEach((note) => {
-            const noteItem = document.createElement("button")
-            noteItem.classList.add("note-item");
-            
-            noteItem.textContent = note.title
-
-            notesList.appendChild(noteItem)
-        })
+    notes.forEach((note, index) => {
+        const noteItem = document.createElement("button")
+        noteItem.classList.add("note-item");
         
+        noteItem.textContent = note.title
 
-        /* noteItem.addEventListener("click", () => {
-            console.log("Open note item")
-        }) */
-    }
+        noteItem.addEventListener("click", () => {
+            openNote(index);
+        })
+
+        notesList.appendChild(noteItem)
+    })   
+}
+
+function openNote(index){
+    selectedNoteIndex = index;
+
+    titleText.value = notes[index].title;
+    editor.value = notes[index].content;
+}
+
+function removeNote(){
+    if(selectedNoteIndex === null) return;
+
+    notes.splice(selectedNoteIndex, 1);
+
+    renderNotes();
+
+    selectedNoteIndex = null;
+
+    titleText.value = "";
+    editor.value = "";
+
+}
 
 
 
