@@ -1,12 +1,28 @@
 let notes = [];
 let selectedNoteIndex = null;
 
+window.onload = function(){
+    const saveNotes = localStorage.getItem("notes");
+
+    if(saveNotes){
+        notes = JSON.parse(saveNotes);
+
+        renderNotes();
+    }
+    if(notes.length > 0){
+        openNote(0)
+    }
+    
+}
+
 const titleText = document.getElementById("title")
 const editor = document.getElementById("editor")
 
 titleText.addEventListener("input", ()=> {
     if(selectedNoteIndex === null) return;
     notes[selectedNoteIndex].title = titleText.value 
+
+    saveNotes();
     renderNotes();
 })
 
@@ -15,6 +31,8 @@ titleText.addEventListener("input", ()=> {
 editor.addEventListener("input", ()=> {
     if(selectedNoteIndex === null) return;
     notes[selectedNoteIndex].content = editor.value 
+
+    saveNotes();
 })
 
 function addNoteItem(){
@@ -25,7 +43,8 @@ function addNoteItem(){
     }
     notes.push(note)
 
-    renderNotes()
+    saveNotes();
+    renderNotes();
     openNote(notes.length - 1)
     }
     
@@ -54,12 +73,12 @@ function openNote(index){
     titleText.value = notes[index].title;
     editor.value = notes[index].content;
 }
-
+document.getElementById("deleteBtn").addEventListener("click", showDeleteModal)
 function removeNote(){
     if(selectedNoteIndex === null) return;
-
     notes.splice(selectedNoteIndex, 1);
 
+    saveNotes();
     renderNotes();
 
     selectedNoteIndex = null;
@@ -67,6 +86,25 @@ function removeNote(){
     titleText.value = "";
     editor.value = "";
 
+}
+
+function showDeleteModal(){
+    document.getElementById("deleteModal").classList.add("show")
+
+}
+
+function hideDeleteModal(){
+    document.getElementById("deleteModal").classList.remove("show")
+}
+
+document.getElementById("cancelDeleteBtn").addEventListener("click", hideDeleteModal);
+document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
+    removeNote();
+    hideDeleteModal();
+})
+
+function saveNotes(){
+    localStorage.setItem("notes", JSON.stringify(notes));
 }
 
 

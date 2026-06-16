@@ -113,3 +113,41 @@ body{
 .note-item:hover{
     background-color: #2a2a2a;
 }
+
+.hidden{
+    display: none;
+}
+
+#deleteModal{
+    position: fixed;
+    inset: 0;
+
+    
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#deleteModal.show{
+    display: flex;
+}
+
+#deleteModalContent{
+    background-color: #1e1e1e;
+    color: white;
+
+    padding: 20px;
+    border-radius: 8px;
+
+    min-width: 250px;
+    text-align: center;
+}
+
+#modalButtons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
