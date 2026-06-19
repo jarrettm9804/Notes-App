@@ -6,8 +6,87 @@ body{
 
 #app{
     display: flex;
+    flex-direction: column;
     height: 100vh;
 }
+
+#mainContent{
+    flex: 1;
+    display: flex;
+}
+
+#searchContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 15px;
+    border-bottom: 1px solid #333;
+}
+#searchWrapper{
+    width: 500px;
+    max-width: 80%;
+    position: relative;
+}
+#searchBar{
+    width: 500px;
+    max-width: 80%;
+    padding: 10px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 8px;
+    outline: none;
+}
+
+#searchBar:focus{
+    border-color: #757575;
+    background-color: #303030;
+}
+
+#searchPage{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    color: white;
+}
+#searchPage.hidden{
+    display: none;
+}
+
+#searchResults{
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    max-height: 200px;
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+#searchResults:empty{
+    display: none;
+}
+
+.search-result{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result:hover{
+    background-color: #2a2a2a;
+}
+
+
+
 #sidebar{
     width: 250px;
     border-right: 1px solid #333;
@@ -17,17 +96,25 @@ body{
 
 #title{
     border: none;
-    outline: none; /* removes the blue outline when focused */
+    outline: none;
     background: transparent;
     font-size: 26px;
     color: white;
     border-bottom: 1px solid #ccc;
+    padding: 20px;
 }
 
 #content{
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+#dashboard{
+    flex: 1;
+    padding: 20px;
+    color: white;
 }
 
 #deleteBtn{
@@ -50,8 +137,10 @@ body{
 }
 
 #editor {
-    width: 100vw;
-    height: 100vh;
+    flex: 1;
+
+    width: 100%;
+    height:auto;
 
     resize: none;
     border: none;
@@ -73,7 +162,8 @@ body{
 #addNoteItem{
     width: 40px;
     height: 40px;
-    margin: 10px;
+    margin: 10px auto;
+    
     
     display: flex;
     justify-content: center;
