@@ -44,6 +44,17 @@ body{
     background-color: #303030;
 }
 
+
+
+#searchBtn{
+    height: 35px;
+    width: 70px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 3px;
+}
+
 #searchPage{
     flex: 1;
     display: flex;
@@ -85,7 +96,25 @@ body{
     background-color: #2a2a2a;
 }
 
+.search-page-result{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    color:white;
+    background-color: #1e1e1e;
+    border-radius: 3px;
+    border: 1px solid #333;
+
+    cursor: pointer;
+}
+
+.search-page-result:hover{
+    background-color: #2a2a2a;
+}
 
 #sidebar{
     width: 250px;
@@ -116,6 +145,22 @@ body{
     padding: 20px;
     color: white;
 }
+#dashboard-items-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-note{
+    width: 200px;
+    height: 50px;
+    margin: 2px;
+    color:white;
+    background-color: #1e1e1e;
+    border-radius: 3px;
+    border: 1px solid #333;
+}
+
+
 
 #deleteBtn{
     position: absolute;
@@ -164,7 +209,6 @@ body{
     height: 40px;
     margin: 10px auto;
     
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,7 +222,6 @@ body{
     font-size: 20px;
     cursor: pointer;
     margin-bottom: 10px;
-    
 }
 
 #addNoteItem:hover {
@@ -198,6 +241,10 @@ body{
 
     cursor: pointer;
     font-size: 15px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .note-item:hover{
@@ -212,7 +259,6 @@ body{
     position: fixed;
     inset: 0;
 
-    
     justify-content: center;
     align-items: center;
 

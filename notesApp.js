@@ -52,17 +52,17 @@ function showDashboard(){
 }
 
 function renderDashboard(){
-    const dashboard = document.getElementById("dashboard")
+    const dashboardItemsContainer = document.getElementById("dashboard-items-container")
 
-    dashboard.innerHTML = "";
+    dashboardItemsContainer.innerHTML = "";
     if(notes.length === 0){
         return;
     }
 
-    const heading = document.createElement("h2");
-    heading.textContent = "Saved Notes";
+    //const heading = document.createElement("h2");
+    //heading.textContent = "Saved Notes";
 
-    dashboard.appendChild(heading);
+    //dashboard.appendChild(heading);
 
     notes.forEach((note, index) => {
         const noteButton = document.createElement("button")
@@ -73,7 +73,7 @@ function renderDashboard(){
             openNote(index);
         });
 
-        dashboard.appendChild(noteButton);
+        dashboardItemsContainer.appendChild(noteButton);
     })
 }
 
@@ -167,7 +167,9 @@ function searchNotes(keyword){
     );
 }
 
-
+searchBar.addEventListener("blur", () => {
+    document.getElementById("searchResults").innerHTML = "";
+});
 document.getElementById("searchBtn").addEventListener("click", performSearch);
 searchBar.addEventListener("keydown", (event) => {
     if(event.key=== "Enter"){
@@ -199,18 +201,31 @@ function renderSearchPage(matchingNotes){
     searchPage.innerHTML = "";
     const heading = document.createElement("h2");
     
-        heading.textContent = `There ${matchingNotes.length === 1 ? "was" : "were"} ${matchingNotes.length}`+
-        `${matchingNotes.length === 1 ? " match":" matches"}` + ` for keyword "${searchBar.value}"`;
-        searchPage.appendChild(heading)
+    heading.textContent = `There ${matchingNotes.length === 1 ? "was" : "were"} ${matchingNotes.length}`+
+    `${matchingNotes.length === 1 ? " match":" matches"}` + ` for keyword "${searchBar.value}"`;
+    searchPage.appendChild(heading)
+
     matchingNotes.forEach((match)=> {
         
 
-        const result = document.createElement("div");
-        
-        result.classList.add("search-result-page");
-        result.textContent = match.note.title;
+        const result = document.createElement("button");
         
         
+        result.classList.add("search-page-result");
+        const title = document.createElement("h3")
+        title.textContent = match.note.title;
+        const content = document.createElement("p")
+        content.textContent = match.note.content.length > 150
+        ? match.note.content.slice(0, 150) + "..."
+        : match.note.content;
+
+        result.appendChild(title)
+        result.appendChild(content)
+        //result.textContent = match.note.title;
+        
+        result.addEventListener("click", () => {
+            openNote(match.originalIndex);
+        })
 
         searchPage.appendChild(result);
         console.log("adding:", match.note.title);
